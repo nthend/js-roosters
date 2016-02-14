@@ -9,14 +9,16 @@ var Image = function( src )
 	var img_c = document.getElementById( "image_container" );
 	img_c.innerHTML += "<img id=\"img" + scount + "\" src=\"" + src + "\" >";
 	this.img = document.getElementById( "img" + scount );
+	
+	var self = this;
+	self.img.onload = function() {
+		self.width = self.img.clientWidth;
+		self.height = self.img.clientHeight;
+	};
+
 	scount++;
 	this.draw = function( context , area )
 	{
-		if( !this.width )
-		{
-			this.width = this.img.clientWidth;
-			this.height = this.img.clientHeight;
-		}
 		context.drawImage( this.img , area.ofx , area.ofy , area.ofw , area.ofh , area.x , area.y , area.w , area.h );
 	};
 };
